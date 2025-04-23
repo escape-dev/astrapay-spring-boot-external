@@ -19,17 +19,20 @@ public class NoteRepository {
 
     public Note create(Note note) {
         note.setId(idGenerator.incrementAndGet());
-        notes.add(note.getId(), note);
+        notes.add(note);
 
         return note;
     }
 
     public Note getById(int id) {
-        return notes.get(id);
+        return notes.stream()
+                .filter(note -> note.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public void delete(int id) {
-        notes.remove(id);
+        notes.removeIf(note -> note.getId() == id);
     }
 
 }

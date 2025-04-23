@@ -27,6 +27,8 @@ public class NoteService {
 
     public BaseResponsesDto<Note> createNote(Note note) {
         BaseResponsesDto<Note> response = new BaseResponsesDto<>();
+        response.setCode(201);
+        response.setMessage("Created");
         response.setResponse(noteRepository.create(note));
 
         return response;
@@ -36,7 +38,7 @@ public class NoteService {
         Note note = noteRepository.getById(id);
 
         if (note == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
         noteRepository.delete(id);

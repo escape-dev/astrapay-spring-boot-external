@@ -3,6 +3,7 @@ package com.astrapay.controller.advice;
 import com.astrapay.dto.BaseResponsesDto;
 
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.FieldError;
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-@Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalControllerExceptionAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -37,9 +37,9 @@ public class GlobalControllerExceptionAdvice {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<BaseResponsesDto<Void>> handleResponseStatusException(ResponseStatusException exception) {
-        BaseResponsesDto<Void> errors = new BaseResponsesDto<>(exception.getStatus().value(), exception.getMessage(), null);
+        BaseResponsesDto<Void> error = new BaseResponsesDto<>(exception.getStatus().value(), exception.getMessage(), null);
 
-        return new ResponseEntity<>(errors, exception.getStatus());
+        return new ResponseEntity<>(error, exception.getStatus());
     }
 
 }
