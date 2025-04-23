@@ -2,7 +2,6 @@ package com.astrapay.controller;
 
 import com.astrapay.dto.BaseResponsesDto;
 import com.astrapay.dto.NoteRequestDto;
-import com.astrapay.dto.ValidationErrorDto;
 import com.astrapay.entity.Note;
 import io.swagger.annotations.Api;
 
@@ -47,7 +46,7 @@ public class NotesController {
     @ApiResponses(
             value = {
                     @ApiResponse(code = 200, message = "OK", response = Note.class),
-                    @ApiResponse(code = 400, message = "Bad Request", response = ValidationErrorDto.class)
+                    @ApiResponse(code = 400, message = "Bad Request", response = Object.class)
             }
     )
     public ResponseEntity<BaseResponsesDto<Note>> createNote(@Valid @RequestBody NoteRequestDto noteRequestDto) {
